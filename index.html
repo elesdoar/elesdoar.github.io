@@ -2,19 +2,49 @@
 layout: default
 ---
 
+<!--
 <div class="home">
 
-  <h1>Posts</h1>
+<h1 class="page-heading">Posts</h1>
 
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+<ul class="post-list">
+{% for post in site.posts %}
+<li>
+<span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+<h2>
+<a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+</h2>
+</li>
+{% endfor %}
+</ul>
 
+<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
+-->
+{% include banner.html %}
+
+<div class="wrapper style1" style="background: transparent;">
+
+  <section class="container special" id="features">
+    <header>
+      <h2>Morbi ullamcorper et varius leo lacus</h2>
+      <p>Ipsum volutpat consectetur orci metus consequat imperdiet duis integer semper magna.</p>
+    </header>
+    <div class="row">
+      {% for post in site.posts %}
+      <article class="4u special">
+        <a class="image featured" href="{{ post.url | prepend: site.baseurl }}"><img alt="" src="images/pic07.jpg"></a>
+        <header>
+          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+        </header>
+        <p>
+          Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
+          porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
+        </p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
 </div>
