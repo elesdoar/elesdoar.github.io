@@ -852,31 +852,33 @@
     // ========================================
     // Match Analyzer (AI-powered with Transformers.js)
     // ========================================
+
+    // Broad keyword lists covering common job description terms
     const skillProfile = {
-      'AI & Productivity': {
-        keywords: ['ai', 'artificial intelligence', 'llm', 'llms', 'large language model', 'prompt engineering', 'github copilot', 'copilot', 'chatgpt', 'gpt', 'claude', 'generative ai', 'gen ai', 'machine learning', 'ml', 'ai-powered', 'ai powered', 'automation', 'intelligent', 'nlp', 'natural language'],
-        description: 'AI-Powered Development, LLM integration, Prompt Engineering for software engineering, GitHub Copilot, AI agent workflow automation, Claude integration',
-        weight: 1.2
-      },
       'Backend': {
-        keywords: ['java', 'spring', 'spring boot', 'springboot', 'node', 'node.js', 'nodejs', 'nestjs', 'nest.js', 'express', 'express.js', 'go', 'golang', 'ruby', 'rails', 'ruby on rails', 'backend', 'back-end', 'api', 'rest', 'restful', 'graphql', 'microservices', 'microservice', 'grpc', 'sql', 'postgresql', 'postgres', 'mysql', 'oracle', 'mongodb', 'redis', 'kafka', 'rabbitmq', 'message queue', 'server'],
+        keywords: ['java', 'spring', 'spring boot', 'springboot', 'node', 'node.js', 'nodejs', 'nestjs', 'nest.js', 'express', 'express.js', 'go', 'golang', 'ruby', 'rails', 'ruby on rails', 'backend', 'back-end', 'back end', 'api', 'rest', 'restful', 'graphql', 'microservices', 'microservice', 'grpc', 'sql', 'postgresql', 'postgres', 'mysql', 'oracle', 'mongodb', 'redis', 'kafka', 'rabbitmq', 'message queue', 'server', 'server-side', 'server side', 'database', 'db'],
         description: 'Java Spring Boot backend development, Node.js NestJS Express server-side programming, Go Golang microservices, Ruby Rails, REST API GraphQL development, SQL PostgreSQL Oracle MongoDB databases',
         weight: 1.0
       },
       'Frontend': {
-        keywords: ['angular', 'react', 'reactjs', 'react.js', 'frontend', 'front-end', 'javascript', 'typescript', 'html', 'css', 'sass', 'scss', 'tailwind', 'ui', 'ux', 'ui/ux', 'spa', 'single page', 'responsive', 'web', 'pwa', 'state management', 'redux', 'ngrx', 'rxjs'],
+        keywords: ['angular', 'react', 'reactjs', 'react.js', 'frontend', 'front-end', 'front end', 'javascript', 'typescript', 'html', 'css', 'sass', 'scss', 'tailwind', 'ui', 'ux', 'ui/ux', 'spa', 'single page', 'responsive', 'web', 'pwa', 'state management', 'redux', 'ngrx', 'rxjs', 'vue', 'next.js', 'nextjs'],
         description: 'Angular React frontend development, JavaScript TypeScript, responsive web UI/UX design, state management, single page applications, progressive web apps',
         weight: 1.0
+      },
+      'Architecture': {
+        keywords: ['architect', 'architecture', 'enterprise', 'system design', 'distributed', 'scalable', 'scalability', 'high availability', 'ha', 'design patterns', 'solid', 'clean architecture', 'domain driven', 'ddd', 'event driven', 'cqrs', 'event sourcing', 'soa', 'technical lead', 'tech lead', 'lead', 'senior', 'principal', 'staff'],
+        description: 'Software architecture enterprise system design, distributed scalable high availability systems, design patterns SOLID clean architecture, domain driven design event driven architecture, technical leadership',
+        weight: 1.1
       },
       'Cloud & DevOps': {
         keywords: ['aws', 'amazon web services', 'azure', 'gcp', 'google cloud', 'cloud', 'docker', 'kubernetes', 'k8s', 'terraform', 'infrastructure', 'iac', 'infrastructure as code', 'ci/cd', 'ci cd', 'cicd', 'jenkins', 'github actions', 'devops', 'dev ops', 'deployment', 'pipeline', 'container', 'serverless', 'lambda', 'monitoring', 'observability'],
         description: 'AWS Azure GCP multicloud architecture, Docker Kubernetes container orchestration, Terraform infrastructure as code, CI/CD pipeline automation, DevOps deployment monitoring observability',
         weight: 1.0
       },
-      'Architecture': {
-        keywords: ['architect', 'architecture', 'enterprise', 'system design', 'distributed', 'scalable', 'scalability', 'high availability', 'ha', 'design patterns', 'solid', 'clean architecture', 'domain driven', 'ddd', 'event driven', 'cqrs', 'event sourcing', 'soa', 'technical lead', 'tech lead', 'lead', 'senior', 'principal'],
-        description: 'Software architecture enterprise system design, distributed scalable high availability systems, design patterns SOLID clean architecture, domain driven design event driven architecture, technical leadership',
-        weight: 1.1
+      'AI & Productivity': {
+        keywords: ['ai', 'artificial intelligence', 'llm', 'llms', 'large language model', 'prompt engineering', 'github copilot', 'copilot', 'chatgpt', 'gpt', 'claude', 'generative ai', 'gen ai', 'machine learning', 'ml', 'ai-powered', 'ai powered', 'automation', 'intelligent', 'nlp', 'natural language'],
+        description: 'AI-Powered Development, LLM integration, Prompt Engineering for software engineering, GitHub Copilot, AI agent workflow automation, Claude integration',
+        weight: 1.2
       },
       'GIS & Data': {
         keywords: ['gis', 'geographic', 'geospatial', 'mapping', 'geoportal', 'spatial', 'data', 'analytics', 'data engineering', 'etl', 'data pipeline'],
@@ -885,14 +887,46 @@
       }
     };
 
+    // Global/cross-category keywords that boost the overall match
+    // These are generic terms that strongly indicate Michael is a fit
+    const globalKeywords = {
+      'fullstack': 0.85, 'full stack': 0.85, 'full-stack': 0.85,
+      'software engineer': 0.80, 'software developer': 0.80,
+      'engineer': 0.50, 'developer': 0.50, 'programmer': 0.40,
+      'software': 0.40, 'web developer': 0.70, 'web engineer': 0.70,
+      'fullstack developer': 0.90, 'fullstack engineer': 0.90,
+      'full stack developer': 0.90, 'full stack engineer': 0.90,
+      'full-stack developer': 0.90, 'full-stack engineer': 0.90,
+      'backend developer': 0.80, 'backend engineer': 0.80,
+      'frontend developer': 0.70, 'frontend engineer': 0.70,
+      'devops engineer': 0.75, 'cloud engineer': 0.70,
+      'solutions architect': 0.85, 'software architect': 0.90,
+      'technical architect': 0.85, 'system architect': 0.80,
+      'ingeniero de software': 0.80, 'desarrollador': 0.50,
+      'desarrollador fullstack': 0.90, 'ingeniero': 0.40,
+      'arquitecto de software': 0.90, 'desarrollador senior': 0.80,
+    };
+
     // Keyword-based analysis (fast, always works)
     function analyzeKeywords(text) {
-      const normalized = text.toLowerCase().replace(/[^\w\s\/\-\.]/g, ' ');
+      const normalized = text.toLowerCase().replace(/[^\w\s\/\-\.áéíóúñü]/g, ' ');
       const results = {};
       let totalMatched = 0;
       let totalKeywords = 0;
       const allMatched = new Set();
 
+      // Check global keywords first
+      let globalBoost = 0;
+      const globalMatches = [];
+      for (const [kw, boost] of Object.entries(globalKeywords)) {
+        if (normalized.includes(kw)) {
+          globalBoost = Math.max(globalBoost, boost);
+          globalMatches.push(kw);
+          allMatched.add(kw);
+        }
+      }
+
+      // Category keyword matching
       for (const [category, data] of Object.entries(skillProfile)) {
         const matched = [];
         for (const kw of data.keywords) {
@@ -901,13 +935,49 @@
             allMatched.add(kw);
           }
         }
-        const score = Math.min(matched.length / Math.max(data.keywords.length * 0.3, 1), 1) * data.weight;
-        results[category] = { matched, score: Math.min(score, 1), total: data.keywords.length };
+        const rawScore = matched.length / Math.max(data.keywords.length * 0.25, 1);
+        const score = Math.min(rawScore * data.weight, 1);
+        results[category] = { matched, score, total: data.keywords.length };
         totalMatched += matched.length * data.weight;
-        totalKeywords += data.keywords.length * 0.3;
+        totalKeywords += data.keywords.length * 0.25;
       }
 
-      const overallMatch = Math.min(Math.round((totalMatched / Math.max(totalKeywords, 1)) * 100), 98);
+      // Calculate overall match
+      let keywordMatch = Math.min(Math.round((totalMatched / Math.max(totalKeywords, 1)) * 100), 98);
+
+      // If global keywords matched (e.g., "fullstack engineer"), ensure a meaningful base score
+      if (globalBoost > 0 && keywordMatch < globalBoost * 100) {
+        // Blend: use the higher of keyword match or global boost
+        keywordMatch = Math.max(keywordMatch, Math.round(globalBoost * 60));
+      }
+
+      // If we have global matches but no category matches, boost relevant categories
+      if (globalMatches.length > 0) {
+        const isFullstack = globalMatches.some(m => m.includes('fullstack') || m.includes('full stack') || m.includes('full-stack'));
+        const isBackend = globalMatches.some(m => m.includes('backend'));
+        const isFrontend = globalMatches.some(m => m.includes('frontend'));
+        const isArchitect = globalMatches.some(m => m.includes('architect'));
+        const isDevops = globalMatches.some(m => m.includes('devops') || m.includes('cloud'));
+
+        if (isFullstack) {
+          results['Backend'].score = Math.max(results['Backend'].score, 0.7);
+          results['Frontend'].score = Math.max(results['Frontend'].score, 0.7);
+          results['Architecture'].score = Math.max(results['Architecture'].score, 0.5);
+        }
+        if (isBackend) results['Backend'].score = Math.max(results['Backend'].score, 0.7);
+        if (isFrontend) results['Frontend'].score = Math.max(results['Frontend'].score, 0.7);
+        if (isArchitect) results['Architecture'].score = Math.max(results['Architecture'].score, 0.8);
+        if (isDevops) results['Cloud & DevOps'].score = Math.max(results['Cloud & DevOps'].score, 0.7);
+
+        // Generic "engineer/developer/software" → mild boost to all
+        if (globalMatches.some(m => ['engineer', 'developer', 'software', 'programmer'].includes(m))) {
+          for (const cat of ['Backend', 'Frontend', 'Architecture']) {
+            results[cat].score = Math.max(results[cat].score, 0.3);
+          }
+        }
+      }
+
+      const overallMatch = Math.min(Math.max(keywordMatch, 5), 98);
       return { results, overallMatch, allMatched: Array.from(allMatched) };
     }
 
@@ -931,110 +1001,97 @@
     }
 
     function cosineSimilarity(a, b) {
+      if (!a || !b || a.length !== b.length) return 0;
       let dot = 0, normA = 0, normB = 0;
       for (let i = 0; i < a.length; i++) {
         dot += a[i] * b[i];
         normA += a[i] * a[i];
         normB += b[i] * b[i];
       }
-      return dot / (Math.sqrt(normA) * Math.sqrt(normB));
-    }
-
-    function meanPool(embeddings) {
-      const len = embeddings[0].length;
-      const result = new Float32Array(len);
-      for (let i = 0; i < embeddings.length; i++) {
-        for (let j = 0; j < len; j++) {
-          result[j] += embeddings[i][j];
-        }
-      }
-      for (let j = 0; j < len; j++) {
-        result[j] /= embeddings.length;
-      }
-      return result;
+      const denom = Math.sqrt(normA) * Math.sqrt(normB);
+      if (denom === 0) return 0;
+      return dot / denom;
     }
 
     async function analyzeWithAI(text) {
       const model = await loadAIModel();
       if (!model) return null;
 
-      // Get embedding for the job description
-      const jobEmbeddingRaw = await model(text, { pooling: 'mean', normalize: true });
-      const jobEmbedding = Array.from(jobEmbeddingRaw.data);
+      try {
+        const jobEmbeddingRaw = await model(text, { pooling: 'mean', normalize: true });
+        const jobEmbedding = Array.from(jobEmbeddingRaw.data);
 
-      // Get embeddings for each skill category
-      const aiResults = {};
-      for (const [category, data] of Object.entries(skillProfile)) {
-        const catEmbeddingRaw = await model(data.description, { pooling: 'mean', normalize: true });
-        const catEmbedding = Array.from(catEmbeddingRaw.data);
-        const similarity = cosineSimilarity(jobEmbedding, catEmbedding);
-        // Scale similarity: typical cosine similarity for related text is 0.3-0.8
-        const scaledScore = Math.min(Math.max((similarity - 0.15) / 0.55, 0), 1);
-        aiResults[category] = scaledScore;
+        const aiResults = {};
+        for (const [category, data] of Object.entries(skillProfile)) {
+          const catEmbeddingRaw = await model(data.description, { pooling: 'mean', normalize: true });
+          const catEmbedding = Array.from(catEmbeddingRaw.data);
+          const similarity = cosineSimilarity(jobEmbedding, catEmbedding);
+
+          // Validate: similarity should be a finite number between -1 and 1
+          if (!isFinite(similarity)) {
+            aiResults[category] = 0;
+            continue;
+          }
+          const scaledScore = Math.min(Math.max((similarity - 0.15) / 0.55, 0), 1);
+          aiResults[category] = scaledScore;
+        }
+
+        // Validate all scores are finite numbers
+        const hasValid = Object.values(aiResults).some(s => isFinite(s) && s > 0);
+        return hasValid ? aiResults : null;
+      } catch (e) {
+        console.warn('AI embedding failed:', e);
+        return null;
       }
-
-      return aiResults;
     }
 
-    function generateAISummary(analysis, aiScores) {
-      const t = translations[currentLang];
+    function generateAISummary(overallMatch, topCategories, aiScores) {
       const isEs = currentLang === 'es';
-      const topCategories = Object.entries(analysis.results)
-        .filter(([, v]) => v.matched.length > 0)
-        .sort((a, b) => b[1].score - a[1].score)
-        .slice(0, 3)
-        .map(([cat]) => cat);
-
-      const pct = analysis.overallMatch;
-      let summary = '';
+      const pct = overallMatch;
 
       if (isEs) {
         if (pct >= 70) {
-          summary = 'Excelente compatibilidad con esta posición. ';
-          summary += 'Mi perfil se alinea fuertemente en ' + topCategories.join(', ') + '. ';
-          summary += 'Mi experiencia en ' + (topCategories[0] || 'arquitectura de software') + ' es directamente relevante para los requisitos descritos.';
+          return 'Excelente compatibilidad con esta posición. Mi perfil se alinea fuertemente en ' +
+            topCategories.join(', ') + '. Mi experiencia en ' +
+            (topCategories[0] || 'arquitectura de software') +
+            ' es directamente relevante para los requisitos descritos.';
         } else if (pct >= 40) {
-          summary = 'Buena compatibilidad con esta posición. ';
-          summary += 'Mis fortalezas en ' + topCategories.join(', ') + ' se alinean con varios requisitos clave. ';
+          let s = 'Buena compatibilidad con esta posición. Mis fortalezas en ' +
+            topCategories.join(', ') + ' se alinean con varios requisitos clave.';
           if (aiScores) {
-            const aiTop = Object.entries(aiScores).sort((a,b) => b[1]-a[1])[0];
-            if (aiTop && aiTop[1] > 0.5) {
-              summary += 'El análisis semántico indica una alta afinidad en ' + aiTop[0] + '.';
-            }
+            const aiTop = Object.entries(aiScores).filter(([,v]) => isFinite(v)).sort((a,b) => b[1]-a[1])[0];
+            if (aiTop && aiTop[1] > 0.5) s += ' El análisis semántico indica alta afinidad en ' + aiTop[0] + '.';
           }
-        } else if (pct > 10) {
-          summary = 'Compatibilidad parcial. ';
-          summary += topCategories.length > 0
-            ? 'Hay coincidencias en ' + topCategories.join(', ') + ', aunque el rol parece requerir habilidades adicionales fuera de mi perfil principal.'
-            : 'El rol parece requerir un perfil diferente al mío, aunque mi experiencia arquitectónica podría ser transferible.';
+          return s;
+        } else if (pct > 15) {
+          return 'Compatibilidad parcial. ' + (topCategories.length > 0
+            ? 'Hay coincidencias en ' + topCategories.join(', ') + '. Mi experiencia arquitectónica y de liderazgo técnico complementa este perfil.'
+            : 'Aunque no hay coincidencias directas de keywords, mi experiencia como Fullstack Engineer y Arquitecto de Software podría ser relevante para este rol.');
         } else {
-          summary = 'Baja compatibilidad directa. Este rol parece enfocarse en áreas fuera de mi especialización principal. Sin embargo, mi experiencia en arquitectura empresarial y liderazgo técnico podría aportar valor en contextos interdisciplinarios.';
+          return 'Pocas coincidencias directas de palabras clave. Sin embargo, mi experiencia de 13+ años como Arquitecto de Software Senior con expertise en backend, frontend y cloud podría aportar valor significativo. Prueba pegar una descripción más detallada del puesto para un mejor análisis.';
         }
       } else {
         if (pct >= 70) {
-          summary = 'Excellent match for this position. ';
-          summary += 'My profile aligns strongly in ' + topCategories.join(', ') + '. ';
-          summary += 'My experience in ' + (topCategories[0] || 'software architecture') + ' is directly relevant to the described requirements.';
+          return 'Excellent match for this position. My profile aligns strongly in ' +
+            topCategories.join(', ') + '. My experience in ' +
+            (topCategories[0] || 'software architecture') +
+            ' is directly relevant to the described requirements.';
         } else if (pct >= 40) {
-          summary = 'Good match for this position. ';
-          summary += 'My strengths in ' + topCategories.join(', ') + ' align with several key requirements. ';
+          let s = 'Good match for this position. My strengths in ' +
+            topCategories.join(', ') + ' align with several key requirements.';
           if (aiScores) {
-            const aiTop = Object.entries(aiScores).sort((a,b) => b[1]-a[1])[0];
-            if (aiTop && aiTop[1] > 0.5) {
-              summary += 'Semantic analysis indicates high affinity in ' + aiTop[0] + '.';
-            }
+            const aiTop = Object.entries(aiScores).filter(([,v]) => isFinite(v)).sort((a,b) => b[1]-a[1])[0];
+            if (aiTop && aiTop[1] > 0.5) s += ' Semantic analysis indicates high affinity in ' + aiTop[0] + '.';
           }
-        } else if (pct > 10) {
-          summary = 'Partial match. ';
-          summary += topCategories.length > 0
-            ? 'There are matches in ' + topCategories.join(', ') + ', though the role appears to require additional skills outside my core profile.'
-            : 'The role seems to require a different profile, though my architectural experience could be transferable.';
+          return s;
+        } else if (pct > 15) {
+          return 'Partial match. ' + (topCategories.length > 0
+            ? 'There are matches in ' + topCategories.join(', ') + '. My architectural and technical leadership experience complements this profile.'
+            : 'While no direct keyword matches were found, my experience as a Fullstack Engineer and Software Architect could be relevant to this role.');
         } else {
-          summary = 'Low direct match. This role appears to focus on areas outside my main specialization. However, my enterprise architecture and technical leadership experience could add value in cross-functional contexts.';
+          return 'Few direct keyword matches found. However, my 13+ years of experience as a Senior Software Architect with backend, frontend, and cloud expertise could add significant value. Try pasting a more detailed job description for better analysis.';
         }
       }
-
-      return summary;
     }
 
     function renderResults(analysis, aiScores) {
@@ -1045,26 +1102,43 @@
       const keywordTags = document.getElementById('keyword-tags');
       const summaryEl = document.getElementById('ai-summary-text');
 
-      // If we have AI scores, blend them with keyword scores
+      // If we have valid AI scores, blend them with keyword scores
       if (aiScores) {
         for (const [cat, data] of Object.entries(analysis.results)) {
-          if (aiScores[cat] !== undefined) {
-            // Blend: 40% keywords, 60% AI semantic
-            const blended = data.score * 0.4 + aiScores[cat] * data.weight * 0.6;
-            data.score = Math.min(blended, 1);
+          const aiScore = aiScores[cat];
+          if (aiScore !== undefined && isFinite(aiScore)) {
+            // Blend: 50% keywords, 50% AI semantic
+            const blended = data.score * 0.5 + aiScore * data.weight * 0.5;
+            data.score = Math.min(isFinite(blended) ? blended : data.score, 1);
           }
         }
-        // Recalculate overall match
-        const scores = Object.values(analysis.results).map(d => d.score);
-        const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
-        analysis.overallMatch = Math.min(Math.round(avgScore * 100), 98);
+        // Recalculate overall match from blended category scores
+        const validScores = Object.values(analysis.results).map(d => d.score).filter(s => isFinite(s));
+        if (validScores.length > 0) {
+          // Weighted: take the top categories more heavily
+          const sorted = validScores.sort((a, b) => b - a);
+          const weighted = sorted.slice(0, 3).reduce((a, b) => a + b, 0) / Math.min(sorted.length, 3);
+          const newMatch = Math.round(weighted * 100);
+          if (isFinite(newMatch)) {
+            analysis.overallMatch = Math.min(Math.max(newMatch, analysis.overallMatch), 98);
+          }
+        }
       }
+
+      // Safety: ensure overallMatch is a valid number
+      if (!isFinite(analysis.overallMatch)) analysis.overallMatch = 0;
 
       container.classList.remove('hidden');
       percentage.textContent = analysis.overallMatch + '%';
 
-      // Summary
-      summaryEl.textContent = generateAISummary(analysis, aiScores);
+      // Get top categories for summary
+      const topCats = Object.entries(analysis.results)
+        .filter(([, v]) => v.score > 0.1)
+        .sort((a, b) => b[1].score - a[1].score)
+        .slice(0, 3)
+        .map(([cat]) => cat);
+
+      summaryEl.textContent = generateAISummary(analysis.overallMatch, topCats, aiScores);
 
       const barColor = analysis.overallMatch >= 70 ? 'bg-emerald-500' : analysis.overallMatch >= 40 ? 'bg-amber-500' : 'bg-zinc-500';
       bar.className = 'h-full rounded-full transition-all duration-700 ease-out ' + barColor;
@@ -1079,6 +1153,7 @@
 
       for (const [cat, data] of sorted) {
         const pct = Math.round(data.score * 100);
+        if (!isFinite(pct) || pct <= 0) continue;
         const label = pct >= 70 ? t['analyzer.cat_strong'] : pct >= 40 ? t['analyzer.cat_moderate'] : t['analyzer.cat_partial'];
         const labelColor = pct >= 70 ? 'text-emerald-400' : pct >= 40 ? 'text-amber-400' : 'text-zinc-400';
         const barBg = pct >= 70 ? 'bg-emerald-500/30' : pct >= 40 ? 'bg-amber-500/30' : 'bg-zinc-500/30';
@@ -1115,14 +1190,13 @@
       const loading = document.getElementById('analyzer-loading');
       const loadingText = document.getElementById('analyzer-loading-text');
 
-      // Disable button and show loading
       btn.disabled = true;
       btn.textContent = '...';
 
-      // First, do keyword analysis (instant)
+      // Keyword analysis (instant)
       const keywordAnalysis = analyzeKeywords(input);
 
-      // Then attempt AI analysis
+      // AI analysis (async, may fail gracefully)
       let aiScores = null;
       if (aiAvailable) {
         loading.classList.remove('hidden');
@@ -1131,16 +1205,18 @@
 
         try {
           aiScores = await analyzeWithAI(input);
-          loadingText.textContent = t['analyzer.analyzing'] || 'Analyzing with AI...';
+          if (aiScores) {
+            loadingText.textContent = t['analyzer.analyzing'] || 'Analyzing with AI...';
+          }
         } catch (e) {
           console.warn('AI analysis failed, using keyword analysis:', e);
+          aiScores = null;
         }
         loading.classList.add('hidden');
       }
 
       renderResults(keywordAnalysis, aiScores);
 
-      // Re-enable button
       btn.disabled = false;
       btn.textContent = translations[currentLang]['analyzer.button'] || 'Analyze';
     });
