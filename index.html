@@ -24,20 +24,103 @@
           },
         },
       },
+      safelist: [
+        'text-emerald-400', 'text-amber-400', 'text-zinc-400',
+        'bg-emerald-500/30', 'bg-amber-500/30', 'bg-zinc-500/30',
+        'bg-emerald-500', 'bg-amber-500', 'bg-zinc-600', 'bg-zinc-500',
+      ],
     }
   </script>
   <style>
-    body { background: #09090b; }
+    body { background: #09090b; transition: background-color 0.3s ease, color 0.3s ease; }
     .dot-grid {
       background-image: radial-gradient(circle, rgba(161,161,170,0.08) 1px, transparent 1px);
       background-size: 24px 24px;
     }
-    .timeline-line { width: 1px; background: #27272a; }
+    .timeline-line { width: 1px; background: #27272a; transition: background-color 0.3s ease; }
     .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     .analyzer-textarea:focus { box-shadow: 0 0 0 2px rgba(113, 113, 122, 0.3); }
     @media (max-width: 768px) {
       .bento-grid { grid-template-columns: 1fr !important; }
+    }
+
+    /* ===== Light Mode Overrides ===== */
+    [data-theme="light"] body { background: #fafaf9; }
+    [data-theme="light"] .dot-grid {
+      background-image: radial-gradient(circle, rgba(161,161,170,0.15) 1px, transparent 1px);
+    }
+    [data-theme="light"] .timeline-line { background: #d4d4d8; }
+
+    /* Nav */
+    [data-theme="light"] .bg-zinc-950\/80 { background-color: rgba(250,250,249,0.85) !important; }
+    [data-theme="light"] .bg-zinc-950\/95 { background-color: rgba(250,250,249,0.97) !important; }
+
+    /* Text colors */
+    [data-theme="light"] .text-zinc-50 { color: #18181b !important; }
+    [data-theme="light"] .text-zinc-100 { color: #27272a !important; }
+    [data-theme="light"] .text-zinc-200 { color: #3f3f46 !important; }
+    [data-theme="light"] .text-zinc-300 { color: #52525b !important; }
+    [data-theme="light"] .text-zinc-400 { color: #71717a !important; }
+    [data-theme="light"] .text-zinc-500 { color: #a1a1aa !important; }
+    [data-theme="light"] .text-zinc-600 { color: #a1a1aa !important; }
+    [data-theme="light"] .text-zinc-700 { color: #d4d4d8 !important; }
+
+    /* Background colors */
+    [data-theme="light"] .bg-zinc-900\/40 { background-color: rgba(255,255,255,0.7) !important; }
+    [data-theme="light"] .bg-zinc-950\/60 { background-color: rgba(244,244,245,0.6) !important; }
+    [data-theme="light"] .bg-zinc-800\/80 { background-color: rgba(228,228,231,0.8) !important; }
+    [data-theme="light"] .bg-zinc-800\/60 { background-color: rgba(228,228,231,0.6) !important; }
+    [data-theme="light"] .bg-zinc-800 { background-color: #e4e4e7 !important; }
+
+    /* Borders */
+    [data-theme="light"] .border-zinc-800 { border-color: #d4d4d8 !important; }
+    [data-theme="light"] .border-zinc-800\/60 { border-color: rgba(212,212,216,0.6) !important; }
+    [data-theme="light"] .border-zinc-700 { border-color: #a1a1aa !important; }
+
+    /* Rings (timeline dots) */
+    [data-theme="light"] .ring-zinc-700 { --tw-ring-color: #a1a1aa !important; }
+    [data-theme="light"] .ring-zinc-800 { --tw-ring-color: #d4d4d8 !important; }
+    [data-theme="light"] .border-zinc-950 { border-color: #fafaf9 !important; }
+
+    /* Gradient */
+    [data-theme="light"] .to-zinc-950 { --tw-gradient-to: #fafaf9 !important; }
+
+    /* CTA buttons (invert) */
+    [data-theme="light"] .bg-zinc-100 { background-color: #18181b !important; }
+    [data-theme="light"] .bg-zinc-100.text-zinc-900,
+    [data-theme="light"] .bg-zinc-100 { color: #fafaf9 !important; }
+    [data-theme="light"] .hover\:bg-white:hover { background-color: #27272a !important; }
+
+    /* Progress bars keep their colors */
+    [data-theme="light"] .bg-emerald-500 { background-color: rgb(16 185 129) !important; color: inherit !important; }
+    [data-theme="light"] .bg-amber-500 { background-color: rgb(245 158 11) !important; color: inherit !important; }
+    [data-theme="light"] .bg-zinc-500 { background-color: #71717a !important; }
+
+    /* Accent backgrounds stay the same but slightly stronger */
+    [data-theme="light"] .bg-violet-500\/10 { background-color: rgba(139,92,246,0.12) !important; }
+    [data-theme="light"] .bg-blue-500\/10 { background-color: rgba(59,130,246,0.12) !important; }
+    [data-theme="light"] .bg-emerald-500\/10 { background-color: rgba(16,185,129,0.12) !important; }
+    [data-theme="light"] .bg-amber-500\/10 { background-color: rgba(245,158,11,0.12) !important; }
+
+    /* Keep colored text the same for accent labels */
+    [data-theme="light"] .text-violet-400 { color: #8b5cf6 !important; }
+    [data-theme="light"] .text-blue-400 { color: #3b82f6 !important; }
+    [data-theme="light"] .text-emerald-400 { color: #10b981 !important; }
+    [data-theme="light"] .text-amber-400 { color: #f59e0b !important; }
+
+    /* Placeholder */
+    [data-theme="light"] .placeholder-zinc-600::placeholder { color: #a1a1aa !important; }
+
+    /* Dot colors for window chrome */
+    [data-theme="light"] .bg-zinc-700 { background-color: #d4d4d8 !important; }
+
+    /* Focus ring for analyzer */
+    [data-theme="light"] .analyzer-textarea:focus { box-shadow: 0 0 0 2px rgba(161, 161, 170, 0.4); }
+
+    /* Smooth transition for themed elements */
+    [data-theme="light"] *, [data-theme="dark"] * {
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
   </style>
 </head>
@@ -56,6 +139,10 @@
         <a href="#contact" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.contact">Contact</a>
       </div>
       <div class="flex items-center gap-3">
+        <button id="theme-toggle" class="text-zinc-500 hover:text-zinc-300 border border-zinc-800 rounded p-1 transition-colors" aria-label="Toggle theme">
+          <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
         <button id="lang-toggle" class="text-xs font-mono text-zinc-500 hover:text-zinc-300 border border-zinc-800 rounded px-2 py-1 transition-colors">EN</button>
         <button id="mobile-menu-btn" class="md:hidden text-zinc-400 hover:text-zinc-100">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
@@ -412,11 +499,16 @@
             data-i18n-placeholder="analyzer.placeholder"
             placeholder="Paste job description here..."></textarea>
           <div class="flex items-center justify-between mt-4">
-            <p class="text-[10px] text-zinc-600" data-i18n="analyzer.disclaimer">Client-side analysis only. No data is sent externally.</p>
+            <p class="text-[10px] text-zinc-600" data-i18n="analyzer.disclaimer">AI-powered analysis runs entirely in your browser. No data is sent externally.</p>
             <button
               id="analyze-btn"
               class="inline-flex items-center gap-2 bg-zinc-100 text-zinc-900 text-xs font-medium px-4 py-2 rounded-lg hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               data-i18n="analyzer.button">Analyze</button>
+          </div>
+          <!-- Loading indicator -->
+          <div id="analyzer-loading" class="hidden mt-4 flex items-center gap-3">
+            <svg class="animate-spin h-4 w-4 text-zinc-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+            <span id="analyzer-loading-text" class="font-mono text-xs text-zinc-500" data-i18n="analyzer.loading">Loading AI model (first time only)...</span>
           </div>
         </div>
         <!-- Results -->
@@ -432,6 +524,14 @@
             <!-- Progress bar -->
             <div class="w-full h-1.5 bg-zinc-800 rounded-full mb-6 overflow-hidden">
               <div id="match-bar" class="h-full rounded-full transition-all duration-700 ease-out" style="width:0%"></div>
+            </div>
+            <!-- AI Summary -->
+            <div id="ai-summary" class="mb-5 p-4 border border-zinc-800/60 rounded-lg bg-zinc-950/40">
+              <div class="flex items-center gap-2 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-400"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                <span class="font-mono text-[10px] text-zinc-500" data-i18n="analyzer.ai_summary_label">AI Analysis</span>
+              </div>
+              <p id="ai-summary-text" class="text-sm text-zinc-300 leading-relaxed"></p>
             </div>
             <!-- Matched categories -->
             <div id="matched-categories" class="space-y-4"></div>
@@ -453,16 +553,11 @@
         <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="contact.label">Contact</p>
         <h2 class="text-3xl font-bold text-zinc-50 mb-8" data-i18n="contact.heading">Let's Connect</h2>
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 fade-in">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 fade-in">
         <a href="mailto:elesdoar@gmail.com" class="border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3 group-hover:text-zinc-300 transition-colors"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           <p class="text-xs text-zinc-400 mb-0.5" data-i18n="contact.email_label">Email</p>
           <p class="text-sm text-zinc-200">elesdoar@gmail.com</p>
-        </a>
-        <a href="tel:+573183503598" class="border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3 group-hover:text-zinc-300 transition-colors"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <p class="text-xs text-zinc-400 mb-0.5" data-i18n="contact.phone_label">Phone</p>
-          <p class="text-sm text-zinc-200">+57 318 350 3598</p>
         </a>
         <a href="https://github.com/elesdoar" target="_blank" rel="noopener noreferrer" class="border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3 group-hover:text-zinc-300 transition-colors"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
@@ -486,7 +581,38 @@
     </div>
   </footer>
 
-  <script>
+  <script type="module">
+    // ========================================
+    // Theme System
+    // ========================================
+    function detectTheme() {
+      const stored = localStorage.getItem('portfolio-theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('portfolio-theme', theme);
+      const sunIcon = document.getElementById('theme-icon-sun');
+      const moonIcon = document.getElementById('theme-icon-moon');
+      if (theme === 'light') {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+    }
+
+    // Apply theme immediately (before paint)
+    setTheme(detectTheme());
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
     // ========================================
     // i18n System
     // ========================================
@@ -555,7 +681,10 @@
         'analyzer.subheading': 'Paste a job description to see how my profile aligns with the requirements.',
         'analyzer.window_title': 'profile-match-analyzer',
         'analyzer.placeholder': 'Paste job description here...',
-        'analyzer.disclaimer': 'Client-side analysis only. No data is sent externally.',
+        'analyzer.disclaimer': 'AI-powered analysis runs entirely in your browser. No data is sent externally.',
+        'analyzer.loading': 'Loading AI model (first time only)...',
+        'analyzer.analyzing': 'Analyzing with AI...',
+        'analyzer.ai_summary_label': 'AI Analysis',
         'analyzer.button': 'Analyze',
         'analyzer.results_title': 'Analysis Results',
         'analyzer.match_label': 'Match:',
@@ -566,7 +695,6 @@
         'contact.label': 'Contact',
         'contact.heading': 'Let\'s Connect',
         'contact.email_label': 'Email',
-        'contact.phone_label': 'Phone',
         'contact.location_label': 'Location',
         'contact.location': 'Cajicá, Cundinamarca, Colombia',
         'footer.built': 'Built with care and a lot of coffee.',
@@ -635,7 +763,10 @@
         'analyzer.subheading': 'Pega una descripción de puesto para ver cómo mi perfil se alinea con los requisitos.',
         'analyzer.window_title': 'analizador-de-perfil',
         'analyzer.placeholder': 'Pega la descripción del puesto aquí...',
-        'analyzer.disclaimer': 'Análisis del lado del cliente. No se envían datos externamente.',
+        'analyzer.disclaimer': 'El análisis con IA se ejecuta en tu navegador. No se envían datos externamente.',
+        'analyzer.loading': 'Cargando modelo de IA (solo la primera vez)...',
+        'analyzer.analyzing': 'Analizando con IA...',
+        'analyzer.ai_summary_label': 'Análisis IA',
         'analyzer.button': 'Analizar',
         'analyzer.results_title': 'Resultados del Análisis',
         'analyzer.match_label': 'Coincidencia:',
@@ -646,7 +777,6 @@
         'contact.label': 'Contacto',
         'contact.heading': 'Conectemos',
         'contact.email_label': 'Correo',
-        'contact.phone_label': 'Teléfono',
         'contact.location_label': 'Ubicación',
         'contact.location': 'Cajicá, Cundinamarca, Colombia',
         'footer.built': 'Construido con cuidado y mucho café.',
@@ -720,36 +850,43 @@
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     // ========================================
-    // Match Analyzer
+    // Match Analyzer (AI-powered with Transformers.js)
     // ========================================
     const skillProfile = {
       'AI & Productivity': {
         keywords: ['ai', 'artificial intelligence', 'llm', 'llms', 'large language model', 'prompt engineering', 'github copilot', 'copilot', 'chatgpt', 'gpt', 'claude', 'generative ai', 'gen ai', 'machine learning', 'ml', 'ai-powered', 'ai powered', 'automation', 'intelligent', 'nlp', 'natural language'],
+        description: 'AI-Powered Development, LLM integration, Prompt Engineering for software engineering, GitHub Copilot, AI agent workflow automation, Claude integration',
         weight: 1.2
       },
       'Backend': {
-        keywords: ['java', 'spring', 'spring boot', 'springboot', 'node', 'node.js', 'nodejs', 'nestjs', 'nest.js', 'express', 'express.js', 'go', 'golang', 'ruby', 'rails', 'ruby on rails', 'backend', 'back-end', 'api', 'rest', 'restful', 'graphql', 'microservices', 'microservice', 'grpc', 'sql', 'postgresql', 'postgres', 'mysql', 'oracle', 'mongodb', 'redis', 'kafka', 'rabbitmq', 'message queue'],
+        keywords: ['java', 'spring', 'spring boot', 'springboot', 'node', 'node.js', 'nodejs', 'nestjs', 'nest.js', 'express', 'express.js', 'go', 'golang', 'ruby', 'rails', 'ruby on rails', 'backend', 'back-end', 'api', 'rest', 'restful', 'graphql', 'microservices', 'microservice', 'grpc', 'sql', 'postgresql', 'postgres', 'mysql', 'oracle', 'mongodb', 'redis', 'kafka', 'rabbitmq', 'message queue', 'server'],
+        description: 'Java Spring Boot backend development, Node.js NestJS Express server-side programming, Go Golang microservices, Ruby Rails, REST API GraphQL development, SQL PostgreSQL Oracle MongoDB databases',
         weight: 1.0
       },
       'Frontend': {
         keywords: ['angular', 'react', 'reactjs', 'react.js', 'frontend', 'front-end', 'javascript', 'typescript', 'html', 'css', 'sass', 'scss', 'tailwind', 'ui', 'ux', 'ui/ux', 'spa', 'single page', 'responsive', 'web', 'pwa', 'state management', 'redux', 'ngrx', 'rxjs'],
+        description: 'Angular React frontend development, JavaScript TypeScript, responsive web UI/UX design, state management, single page applications, progressive web apps',
         weight: 1.0
       },
       'Cloud & DevOps': {
         keywords: ['aws', 'amazon web services', 'azure', 'gcp', 'google cloud', 'cloud', 'docker', 'kubernetes', 'k8s', 'terraform', 'infrastructure', 'iac', 'infrastructure as code', 'ci/cd', 'ci cd', 'cicd', 'jenkins', 'github actions', 'devops', 'dev ops', 'deployment', 'pipeline', 'container', 'serverless', 'lambda', 'monitoring', 'observability'],
+        description: 'AWS Azure GCP multicloud architecture, Docker Kubernetes container orchestration, Terraform infrastructure as code, CI/CD pipeline automation, DevOps deployment monitoring observability',
         weight: 1.0
       },
       'Architecture': {
         keywords: ['architect', 'architecture', 'enterprise', 'system design', 'distributed', 'scalable', 'scalability', 'high availability', 'ha', 'design patterns', 'solid', 'clean architecture', 'domain driven', 'ddd', 'event driven', 'cqrs', 'event sourcing', 'soa', 'technical lead', 'tech lead', 'lead', 'senior', 'principal'],
+        description: 'Software architecture enterprise system design, distributed scalable high availability systems, design patterns SOLID clean architecture, domain driven design event driven architecture, technical leadership',
         weight: 1.1
       },
       'GIS & Data': {
         keywords: ['gis', 'geographic', 'geospatial', 'mapping', 'geoportal', 'spatial', 'data', 'analytics', 'data engineering', 'etl', 'data pipeline'],
+        description: 'GIS geographic information systems, geospatial mapping geoportal, data analytics engineering, ETL data pipelines',
         weight: 0.8
       }
     };
 
-    function analyzeMatch(text) {
+    // Keyword-based analysis (fast, always works)
+    function analyzeKeywords(text) {
       const normalized = text.toLowerCase().replace(/[^\w\s\/\-\.]/g, ' ');
       const results = {};
       let totalMatched = 0;
@@ -774,24 +911,170 @@
       return { results, overallMatch, allMatched: Array.from(allMatched) };
     }
 
-    function renderResults(analysis) {
+    // AI-powered analysis using Transformers.js
+    let embedder = null;
+    let aiAvailable = true;
+
+    async function loadAIModel() {
+      if (embedder) return embedder;
+      try {
+        const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.1');
+        embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+          dtype: 'q8',
+        });
+        return embedder;
+      } catch (e) {
+        console.warn('AI model not available, using keyword analysis:', e);
+        aiAvailable = false;
+        return null;
+      }
+    }
+
+    function cosineSimilarity(a, b) {
+      let dot = 0, normA = 0, normB = 0;
+      for (let i = 0; i < a.length; i++) {
+        dot += a[i] * b[i];
+        normA += a[i] * a[i];
+        normB += b[i] * b[i];
+      }
+      return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+    }
+
+    function meanPool(embeddings) {
+      const len = embeddings[0].length;
+      const result = new Float32Array(len);
+      for (let i = 0; i < embeddings.length; i++) {
+        for (let j = 0; j < len; j++) {
+          result[j] += embeddings[i][j];
+        }
+      }
+      for (let j = 0; j < len; j++) {
+        result[j] /= embeddings.length;
+      }
+      return result;
+    }
+
+    async function analyzeWithAI(text) {
+      const model = await loadAIModel();
+      if (!model) return null;
+
+      // Get embedding for the job description
+      const jobEmbeddingRaw = await model(text, { pooling: 'mean', normalize: true });
+      const jobEmbedding = Array.from(jobEmbeddingRaw.data);
+
+      // Get embeddings for each skill category
+      const aiResults = {};
+      for (const [category, data] of Object.entries(skillProfile)) {
+        const catEmbeddingRaw = await model(data.description, { pooling: 'mean', normalize: true });
+        const catEmbedding = Array.from(catEmbeddingRaw.data);
+        const similarity = cosineSimilarity(jobEmbedding, catEmbedding);
+        // Scale similarity: typical cosine similarity for related text is 0.3-0.8
+        const scaledScore = Math.min(Math.max((similarity - 0.15) / 0.55, 0), 1);
+        aiResults[category] = scaledScore;
+      }
+
+      return aiResults;
+    }
+
+    function generateAISummary(analysis, aiScores) {
+      const t = translations[currentLang];
+      const isEs = currentLang === 'es';
+      const topCategories = Object.entries(analysis.results)
+        .filter(([, v]) => v.matched.length > 0)
+        .sort((a, b) => b[1].score - a[1].score)
+        .slice(0, 3)
+        .map(([cat]) => cat);
+
+      const pct = analysis.overallMatch;
+      let summary = '';
+
+      if (isEs) {
+        if (pct >= 70) {
+          summary = 'Excelente compatibilidad con esta posición. ';
+          summary += 'Mi perfil se alinea fuertemente en ' + topCategories.join(', ') + '. ';
+          summary += 'Mi experiencia en ' + (topCategories[0] || 'arquitectura de software') + ' es directamente relevante para los requisitos descritos.';
+        } else if (pct >= 40) {
+          summary = 'Buena compatibilidad con esta posición. ';
+          summary += 'Mis fortalezas en ' + topCategories.join(', ') + ' se alinean con varios requisitos clave. ';
+          if (aiScores) {
+            const aiTop = Object.entries(aiScores).sort((a,b) => b[1]-a[1])[0];
+            if (aiTop && aiTop[1] > 0.5) {
+              summary += 'El análisis semántico indica una alta afinidad en ' + aiTop[0] + '.';
+            }
+          }
+        } else if (pct > 10) {
+          summary = 'Compatibilidad parcial. ';
+          summary += topCategories.length > 0
+            ? 'Hay coincidencias en ' + topCategories.join(', ') + ', aunque el rol parece requerir habilidades adicionales fuera de mi perfil principal.'
+            : 'El rol parece requerir un perfil diferente al mío, aunque mi experiencia arquitectónica podría ser transferible.';
+        } else {
+          summary = 'Baja compatibilidad directa. Este rol parece enfocarse en áreas fuera de mi especialización principal. Sin embargo, mi experiencia en arquitectura empresarial y liderazgo técnico podría aportar valor en contextos interdisciplinarios.';
+        }
+      } else {
+        if (pct >= 70) {
+          summary = 'Excellent match for this position. ';
+          summary += 'My profile aligns strongly in ' + topCategories.join(', ') + '. ';
+          summary += 'My experience in ' + (topCategories[0] || 'software architecture') + ' is directly relevant to the described requirements.';
+        } else if (pct >= 40) {
+          summary = 'Good match for this position. ';
+          summary += 'My strengths in ' + topCategories.join(', ') + ' align with several key requirements. ';
+          if (aiScores) {
+            const aiTop = Object.entries(aiScores).sort((a,b) => b[1]-a[1])[0];
+            if (aiTop && aiTop[1] > 0.5) {
+              summary += 'Semantic analysis indicates high affinity in ' + aiTop[0] + '.';
+            }
+          }
+        } else if (pct > 10) {
+          summary = 'Partial match. ';
+          summary += topCategories.length > 0
+            ? 'There are matches in ' + topCategories.join(', ') + ', though the role appears to require additional skills outside my core profile.'
+            : 'The role seems to require a different profile, though my architectural experience could be transferable.';
+        } else {
+          summary = 'Low direct match. This role appears to focus on areas outside my main specialization. However, my enterprise architecture and technical leadership experience could add value in cross-functional contexts.';
+        }
+      }
+
+      return summary;
+    }
+
+    function renderResults(analysis, aiScores) {
       const container = document.getElementById('analyzer-results');
       const percentage = document.getElementById('match-percentage');
       const bar = document.getElementById('match-bar');
       const categories = document.getElementById('matched-categories');
       const keywordTags = document.getElementById('keyword-tags');
+      const summaryEl = document.getElementById('ai-summary-text');
+
+      // If we have AI scores, blend them with keyword scores
+      if (aiScores) {
+        for (const [cat, data] of Object.entries(analysis.results)) {
+          if (aiScores[cat] !== undefined) {
+            // Blend: 40% keywords, 60% AI semantic
+            const blended = data.score * 0.4 + aiScores[cat] * data.weight * 0.6;
+            data.score = Math.min(blended, 1);
+          }
+        }
+        // Recalculate overall match
+        const scores = Object.values(analysis.results).map(d => d.score);
+        const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+        analysis.overallMatch = Math.min(Math.round(avgScore * 100), 98);
+      }
 
       container.classList.remove('hidden');
       percentage.textContent = analysis.overallMatch + '%';
 
+      // Summary
+      summaryEl.textContent = generateAISummary(analysis, aiScores);
+
       const barColor = analysis.overallMatch >= 70 ? 'bg-emerald-500' : analysis.overallMatch >= 40 ? 'bg-amber-500' : 'bg-zinc-500';
       bar.className = 'h-full rounded-full transition-all duration-700 ease-out ' + barColor;
+      bar.style.width = '0%';
       setTimeout(() => { bar.style.width = analysis.overallMatch + '%'; }, 50);
 
       const t = translations[currentLang];
       categories.innerHTML = '';
       const sorted = Object.entries(analysis.results)
-        .filter(([, v]) => v.matched.length > 0)
+        .filter(([, v]) => v.score > 0.05)
         .sort((a, b) => b[1].score - a[1].score);
 
       for (const [cat, data] of sorted) {
@@ -819,13 +1102,47 @@
         span.textContent = kw;
         keywordTags.appendChild(span);
       }
+
+      // Scroll results into view
+      container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    document.getElementById('analyze-btn').addEventListener('click', () => {
+    document.getElementById('analyze-btn').addEventListener('click', async () => {
       const input = document.getElementById('analyzer-input').value.trim();
       if (!input) return;
-      const analysis = analyzeMatch(input);
-      renderResults(analysis);
+
+      const btn = document.getElementById('analyze-btn');
+      const loading = document.getElementById('analyzer-loading');
+      const loadingText = document.getElementById('analyzer-loading-text');
+
+      // Disable button and show loading
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      // First, do keyword analysis (instant)
+      const keywordAnalysis = analyzeKeywords(input);
+
+      // Then attempt AI analysis
+      let aiScores = null;
+      if (aiAvailable) {
+        loading.classList.remove('hidden');
+        const t = translations[currentLang];
+        loadingText.textContent = t['analyzer.loading'] || 'Loading AI model (first time only)...';
+
+        try {
+          aiScores = await analyzeWithAI(input);
+          loadingText.textContent = t['analyzer.analyzing'] || 'Analyzing with AI...';
+        } catch (e) {
+          console.warn('AI analysis failed, using keyword analysis:', e);
+        }
+        loading.classList.add('hidden');
+      }
+
+      renderResults(keywordAnalysis, aiScores);
+
+      // Re-enable button
+      btn.disabled = false;
+      btn.textContent = translations[currentLang]['analyzer.button'] || 'Analyze';
     });
   </script>
 </body>
