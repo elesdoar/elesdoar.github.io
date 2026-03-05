@@ -1,50 +1,832 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michael A. Salgado S. — Senior Software Architect</title>
+  <meta name="description" content="Senior Software Architect & AI-Powered Engineer. 13+ years leading the evolution of SDLC through Architectural Excellence and AI-Augmented Engineering.">
+  <meta name="author" content="Michael A. Salgado S.">
+  <meta property="og:title" content="Michael A. Salgado S. — Senior Software Architect">
+  <meta property="og:description" content="Senior Software Architect & AI-Powered Engineer with 13+ years of experience.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://elesdoar.github.io">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { background: #09090b; }
+    .dot-grid {
+      background-image: radial-gradient(circle, rgba(161,161,170,0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .timeline-line { width: 1px; background: #27272a; }
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .analyzer-textarea:focus { box-shadow: 0 0 0 2px rgba(113, 113, 122, 0.3); }
+    @media (max-width: 768px) {
+      .bento-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body class="font-sans text-zinc-300 antialiased">
 
-<!--
-<div class="home">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="mx-auto max-w-5xl px-6 flex items-center justify-between h-14">
+      <a href="#" class="text-sm font-semibold text-zinc-100 tracking-tight" data-i18n="nav.name">M. Salgado</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.about">About</a>
+        <a href="#skills" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.skills">Skills</a>
+        <a href="#experience" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.experience">Experience</a>
+        <a href="#projects" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.projects">Projects</a>
+        <a href="#analyzer" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.analyzer">Match Analyzer</a>
+        <a href="#contact" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="lang-toggle" class="text-xs font-mono text-zinc-500 hover:text-zinc-300 border border-zinc-800 rounded px-2 py-1 transition-colors">EN</button>
+        <button id="mobile-menu-btn" class="md:hidden text-zinc-400 hover:text-zinc-100">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-zinc-800/60 bg-zinc-950/95 backdrop-blur-xl">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#about" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors mobile-link" data-i18n="nav.about">About</a>
+        <a href="#skills" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors mobile-link" data-i18n="nav.skills">Skills</a>
+        <a href="#experience" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors mobile-link" data-i18n="nav.experience">Experience</a>
+        <a href="#projects" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors mobile-link" data-i18n="nav.projects">Projects</a>
+        <a href="#analyzer" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors mobile-link" data-i18n="nav.analyzer">Match Analyzer</a>
+        <a href="#contact" class="text-sm text-zinc-400 hover:text-zinc-100 transition-colors mobile-link" data-i18n="nav.contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 
-<h1 class="page-heading">Posts</h1>
-
-<ul class="post-list">
-{% for post in site.posts %}
-<li>
-<span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-<h2>
-<a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-</h2>
-</li>
-{% endfor %}
-</ul>
-
-<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div>
--->
-{% include banner.html %}
-
-<div class="wrapper style1" style="background: transparent;">
-
-  <section class="container special" id="features">
-    <header>
-      <h2>Morbi ullamcorper et varius leo lacus</h2>
-      <p>Ipsum volutpat consectetur orci metus consequat imperdiet duis integer semper magna.</p>
-    </header>
-    <div class="row">
-      {% for post in site.posts %}
-      <article class="4u special">
-        <a class="image featured" href="{{ post.url | prepend: site.baseurl }}"><img alt="" src="images/pic07.jpg"></a>
-        <header>
-          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-        </header>
-        <p>
-          Amet nullam fringilla nibh nulla convallis tique ante proin sociis accumsan lobortis. Auctor etiam
-          porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum.
-        </p>
-      </article>
-      {% endfor %}
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center dot-grid pt-14">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-950"></div>
+    <div class="relative z-10 mx-auto max-w-3xl px-6 text-center">
+      <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-6" data-i18n="hero.greeting">Hello, I'm</p>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-zinc-50 tracking-tight leading-tight mb-4">
+        Michael A. Salgado S.
+      </h1>
+      <p class="text-lg sm:text-xl text-zinc-400 font-light mb-3" data-i18n="hero.title">Senior Software Architect & AI-Powered Engineer</p>
+      <p class="text-sm sm:text-base text-zinc-500 max-w-xl mx-auto mb-10 leading-relaxed" data-i18n="hero.tagline">Leading the evolution of SDLC through Architectural Excellence and AI-Augmented Engineering. 13+ years building high-scale, distributed systems.</p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="#projects" class="inline-flex items-center gap-2 bg-zinc-100 text-zinc-900 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-white transition-colors" data-i18n="hero.cta_work">View Work</a>
+        <a href="#contact" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-300 text-sm font-medium px-5 py-2.5 rounded-lg hover:border-zinc-500 hover:text-zinc-100 transition-colors" data-i18n="hero.cta_contact">Get in Touch</a>
+      </div>
     </div>
   </section>
-</div>
+
+  <!-- About -->
+  <section id="about" class="py-24 border-t border-zinc-800/60">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="fade-in">
+        <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="about.label">About</p>
+        <h2 class="text-3xl font-bold text-zinc-50 mb-8" data-i18n="about.heading">Professional Profile</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 fade-in">
+        <div class="md:col-span-2">
+          <p class="text-zinc-400 leading-relaxed mb-6" data-i18n="about.description">Senior Software Architect & Fullstack Engineer with 13+ years of experience and a specialization in Enterprise Architecture (Pontificia Universidad Javeriana). Expert in designing high-availability systems and microservices, currently leading the transition to AI-Powered Development. Specialist in optimizing the software development lifecycle (SDLC) through strategic integration of Generative AI, achieving significant time-to-market reduction without compromising technical robustness in AWS, Azure, and GCP environments.</p>
+          <p class="text-zinc-400 leading-relaxed" data-i18n="about.focus">My focus: bridging the gap between enterprise-grade architecture and modern AI-augmented engineering workflows to deliver software that is both robust and rapidly iterated.</p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <div class="border border-zinc-800 rounded-lg p-4">
+            <p class="font-mono text-xs text-zinc-500 mb-1" data-i18n="about.edu_label">Education</p>
+            <p class="text-sm text-zinc-200 font-medium" data-i18n="about.edu1">Enterprise Software Architecture</p>
+            <p class="text-xs text-zinc-500" data-i18n="about.edu1_detail">Pontificia U. Javeriana, 2020</p>
+          </div>
+          <div class="border border-zinc-800 rounded-lg p-4">
+            <p class="text-sm text-zinc-200 font-medium" data-i18n="about.edu2">Systems Engineering</p>
+            <p class="text-xs text-zinc-500" data-i18n="about.edu2_detail">U. Nacional de Colombia, 2013</p>
+          </div>
+          <div class="border border-zinc-800 rounded-lg p-4">
+            <div class="flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-zinc-50">13+</span>
+              <span class="text-xs text-zinc-500" data-i18n="about.years">years of experience</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-24 border-t border-zinc-800/60">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="fade-in">
+        <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="skills.label">Skills</p>
+        <h2 class="text-3xl font-bold text-zinc-50 mb-10" data-i18n="skills.heading">Technical Expertise</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bento-grid fade-in">
+        <!-- AI & Productivity -->
+        <div class="border border-zinc-800 rounded-xl p-6 bg-zinc-900/40 hover:border-zinc-700 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-400"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+            </div>
+            <h3 class="font-mono text-xs text-zinc-400 tracking-wider uppercase" data-i18n="skills.ai_title">AI & Productivity</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">AI-Powered Development</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">LLMs Integration</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Prompt Engineering</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">GitHub Copilot</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">AI Agent Workflows</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Claude</span>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="border border-zinc-800 rounded-xl p-6 bg-zinc-900/40 hover:border-zinc-700 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <h3 class="font-mono text-xs text-zinc-400 tracking-wider uppercase" data-i18n="skills.backend_title">Backend</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Java</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Spring Boot</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Node.js</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">NestJS</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Express</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Go</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Ruby</span>
+          </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="border border-zinc-800 rounded-xl p-6 bg-zinc-900/40 hover:border-zinc-700 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="font-mono text-xs text-zinc-400 tracking-wider uppercase" data-i18n="skills.frontend_title">Frontend</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Angular</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">React</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">State Management</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">UI/UX</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">AI-Optimized UI</span>
+          </div>
+        </div>
+
+        <!-- Cloud & DevOps -->
+        <div class="border border-zinc-800 rounded-xl p-6 bg-zinc-900/40 hover:border-zinc-700 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <h3 class="font-mono text-xs text-zinc-400 tracking-wider uppercase" data-i18n="skills.cloud_title">Cloud & DevOps</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">AWS</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Azure</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">GCP</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Docker</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Kubernetes</span>
+            <span class="text-xs bg-zinc-800/80 text-zinc-300 px-2.5 py-1 rounded-md">Terraform</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-24 border-t border-zinc-800/60">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="fade-in">
+        <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="experience.label">Experience</p>
+        <h2 class="text-3xl font-bold text-zinc-50 mb-12" data-i18n="experience.heading">Work History</h2>
+      </div>
+      <div class="relative fade-in">
+        <!-- Timeline line -->
+        <div class="absolute left-3 md:left-4 top-2 bottom-2 timeline-line"></div>
+
+        <!-- Secretaría Distrital de Planeación -->
+        <div class="relative pl-10 md:pl-12 pb-10">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-50 border-2 border-zinc-950 ring-2 ring-zinc-700"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">Secretaría Distrital de Planeación</h3>
+            <span class="font-mono text-xs text-zinc-500">2024 — <span data-i18n="experience.present">Present</span></span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.sdp_role">Senior Developer</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.sdp_desc">Solution development with Node.js, Angular, and Oracle.</p>
+        </div>
+
+        <!-- UPRA -->
+        <div class="relative pl-10 md:pl-12 pb-10">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-600 border-2 border-zinc-950 ring-2 ring-zinc-800"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">UPRA</h3>
+            <span class="font-mono text-xs text-zinc-500">2024 — <span data-i18n="experience.present2">Present</span></span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.upra_role">DevOps Engineer</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.upra_desc">Azure infrastructure implementation and development with Node.js and Angular.</p>
+        </div>
+
+        <!-- Mercado Libre -->
+        <div class="relative pl-10 md:pl-12 pb-10">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-600 border-2 border-zinc-950 ring-2 ring-zinc-800"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">Mercado Libre Colombia</h3>
+            <span class="font-mono text-xs text-zinc-500">2021 — 2023</span>
+            <span class="text-[10px] font-mono bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full" data-i18n="experience.meli_badge">High-Scale</span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.meli_role">Senior Backend Developer</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.meli_desc">Development of critical and scalable services in Java and Go for the region, optimizing backend performance through distributed architecture design on AWS and GCP.</p>
+        </div>
+
+        <!-- Instaleap -->
+        <div class="relative pl-10 md:pl-12 pb-10">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-600 border-2 border-zinc-950 ring-2 ring-zinc-800"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">Instaleap</h3>
+            <span class="font-mono text-xs text-zinc-500">2020 — 2021</span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.instaleap_role">Senior Fullstack Developer</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.instaleap_desc">Microservices and logistics backoffice development with Node.js, React, and PostgreSQL.</p>
+        </div>
+
+        <!-- ANDJE -->
+        <div class="relative pl-10 md:pl-12 pb-10">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-600 border-2 border-zinc-950 ring-2 ring-zinc-800"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">Agencia Nacional de Defensa Jurídica del Estado</h3>
+            <span class="font-mono text-xs text-zinc-500">2017 — 2023</span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.andje_role">Fullstack Developer</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.andje_desc">Module development for eKogui, the State's litigation management system.</p>
+        </div>
+
+        <!-- EAB -->
+        <div class="relative pl-10 md:pl-12 pb-10">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-600 border-2 border-zinc-950 ring-2 ring-zinc-800"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">Empresa de Acueducto de Bogotá</h3>
+            <span class="font-mono text-xs text-zinc-500">2019 — 2020</span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.eab_role">Development Lead</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.eab_desc">Management and development of SISGEO v2, a geotechnical information system.</p>
+        </div>
+
+        <!-- Kudos -->
+        <div class="relative pl-10 md:pl-12">
+          <div class="absolute left-1.5 md:left-2.5 top-1.5 w-3 h-3 rounded-full bg-zinc-600 border-2 border-zinc-950 ring-2 ring-zinc-800"></div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+            <h3 class="text-base font-semibold text-zinc-100">Kudos</h3>
+            <span class="font-mono text-xs text-zinc-500">2009 — 2019</span>
+          </div>
+          <p class="text-sm text-zinc-400 mb-2" data-i18n="experience.kudos_role">Senior Developer</p>
+          <p class="text-sm text-zinc-500 leading-relaxed" data-i18n="experience.kudos_desc">Fullstack development, microservices, and GIS with Angular, Java, and Node.js.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-24 border-t border-zinc-800/60">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="fade-in">
+        <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="projects.label">Projects</p>
+        <h2 class="text-3xl font-bold text-zinc-50 mb-10" data-i18n="projects.heading">Notable Projects</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 fade-in">
+
+        <!-- DevOps Transformation -->
+        <div class="group border border-zinc-800 rounded-xl p-5 bg-zinc-900/40 hover:border-zinc-700 transition-colors">
+          <h3 class="text-sm font-semibold text-zinc-100 mb-2" data-i18n="projects.devops_title">DevOps Transformation & Lifecycle Automation</h3>
+          <p class="text-xs text-zinc-500 mb-3 leading-relaxed" data-i18n="projects.devops_desc">Led the transition to a DevOps culture at UPRA, automating CI/CD for 5+ mission-critical projects. Implemented Azure infrastructure and automated deployment flows.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Azure</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">CI/CD</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">DevOps</span>
+          </div>
+        </div>
+
+        <!-- eKogui -->
+        <a href="https://www.ekogui.gov.co" target="_blank" rel="noopener noreferrer" class="group border border-zinc-800 rounded-xl p-5 bg-zinc-900/40 hover:border-zinc-700 transition-colors block">
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="text-sm font-semibold text-zinc-100" data-i18n="projects.ekogui_title">eKogui</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-600 group-hover:text-zinc-400 transition-colors flex-shrink-0 ml-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          </div>
+          <p class="text-xs text-zinc-500 mb-3 leading-relaxed" data-i18n="projects.ekogui_desc">Development and architecture of critical modules for the Colombian State's litigation management system, ensuring scalability and security.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Java</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Angular</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Oracle</span>
+          </div>
+        </a>
+
+        <!-- SIPRA -->
+        <a href="https://sipra.upra.gov.co" target="_blank" rel="noopener noreferrer" class="group border border-zinc-800 rounded-xl p-5 bg-zinc-900/40 hover:border-zinc-700 transition-colors block">
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="text-sm font-semibold text-zinc-100">SIPRA</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-600 group-hover:text-zinc-400 transition-colors flex-shrink-0 ml-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          </div>
+          <p class="text-xs text-zinc-500 mb-3 leading-relaxed" data-i18n="projects.sipra_desc">Rural Agricultural Planning Information System for the Colombian agricultural sector.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Node.js</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Angular</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Azure</span>
+          </div>
+        </a>
+
+        <!-- Odin -->
+        <div class="group border border-zinc-800 rounded-xl p-5 bg-zinc-900/40 hover:border-zinc-700 transition-colors">
+          <h3 class="text-sm font-semibold text-zinc-100 mb-2">Odin</h3>
+          <p class="text-xs text-zinc-500 mb-3 leading-relaxed" data-i18n="projects.odin_desc">Last mile backoffice platform for logistics and delivery management.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Node.js</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">React</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">PostgreSQL</span>
+          </div>
+        </div>
+
+        <!-- Hidrotermales -->
+        <a href="https://www2.sgc.gov.co/sgc/mapas/Paginas/Geoportal-del-Inventario-Nacional-de-Manifestaciones-Hidrotermales.aspx" target="_blank" rel="noopener noreferrer" class="group border border-zinc-800 rounded-xl p-5 bg-zinc-900/40 hover:border-zinc-700 transition-colors block">
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="text-sm font-semibold text-zinc-100" data-i18n="projects.hidro_title">Hydrothermal Manifestations Inventory</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-600 group-hover:text-zinc-400 transition-colors flex-shrink-0 ml-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          </div>
+          <p class="text-xs text-zinc-500 mb-3 leading-relaxed" data-i18n="projects.hidro_desc">National Inventory of Hydrothermal Manifestations — GIS-based geoportal.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">GIS</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Angular</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Java</span>
+          </div>
+        </a>
+
+        <!-- SIMMA -->
+        <a href="https://simma.sgc.gov.co" target="_blank" rel="noopener noreferrer" class="group border border-zinc-800 rounded-xl p-5 bg-zinc-900/40 hover:border-zinc-700 transition-colors block">
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="text-sm font-semibold text-zinc-100">SIMMA</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-600 group-hover:text-zinc-400 transition-colors flex-shrink-0 ml-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          </div>
+          <p class="text-xs text-zinc-500 mb-3 leading-relaxed" data-i18n="projects.simma_desc">Mass Movement System — geological monitoring and GIS platform.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">GIS</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Java</span>
+            <span class="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded">Node.js</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Match Analyzer -->
+  <section id="analyzer" class="py-24 border-t border-zinc-800/60">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="fade-in">
+        <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="analyzer.label">Tool</p>
+        <h2 class="text-3xl font-bold text-zinc-50 mb-3" data-i18n="analyzer.heading">Match Analyzer</h2>
+        <p class="text-sm text-zinc-400 mb-8" data-i18n="analyzer.subheading">Paste a job description to see how my profile aligns with the requirements.</p>
+      </div>
+      <div class="border border-zinc-800 rounded-xl bg-zinc-900/40 overflow-hidden fade-in">
+        <div class="border-b border-zinc-800/60 px-4 py-3 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+          <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+          <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+          <span class="font-mono text-[10px] text-zinc-600 ml-2" data-i18n="analyzer.window_title">profile-match-analyzer</span>
+        </div>
+        <div class="p-5">
+          <textarea
+            id="analyzer-input"
+            class="analyzer-textarea w-full h-36 bg-zinc-950/60 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-zinc-300 placeholder-zinc-600 resize-none focus:outline-none transition-shadow font-mono"
+            data-i18n-placeholder="analyzer.placeholder"
+            placeholder="Paste job description here..."></textarea>
+          <div class="flex items-center justify-between mt-4">
+            <p class="text-[10px] text-zinc-600" data-i18n="analyzer.disclaimer">Client-side analysis only. No data is sent externally.</p>
+            <button
+              id="analyze-btn"
+              class="inline-flex items-center gap-2 bg-zinc-100 text-zinc-900 text-xs font-medium px-4 py-2 rounded-lg hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              data-i18n="analyzer.button">Analyze</button>
+          </div>
+        </div>
+        <!-- Results -->
+        <div id="analyzer-results" class="hidden border-t border-zinc-800/60">
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-5">
+              <h4 class="text-sm font-semibold text-zinc-100" data-i18n="analyzer.results_title">Analysis Results</h4>
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-xs text-zinc-500" data-i18n="analyzer.match_label">Match:</span>
+                <span id="match-percentage" class="font-mono text-sm font-bold text-zinc-100">0%</span>
+              </div>
+            </div>
+            <!-- Progress bar -->
+            <div class="w-full h-1.5 bg-zinc-800 rounded-full mb-6 overflow-hidden">
+              <div id="match-bar" class="h-full rounded-full transition-all duration-700 ease-out" style="width:0%"></div>
+            </div>
+            <!-- Matched categories -->
+            <div id="matched-categories" class="space-y-4"></div>
+            <!-- Matched keywords -->
+            <div id="matched-keywords" class="mt-5 pt-5 border-t border-zinc-800/60">
+              <p class="font-mono text-[10px] text-zinc-600 mb-2" data-i18n="analyzer.keywords_label">Matched Keywords</p>
+              <div id="keyword-tags" class="flex flex-wrap gap-1.5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24 border-t border-zinc-800/60">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="fade-in">
+        <p class="font-mono text-xs text-zinc-500 tracking-widest uppercase mb-3" data-i18n="contact.label">Contact</p>
+        <h2 class="text-3xl font-bold text-zinc-50 mb-8" data-i18n="contact.heading">Let's Connect</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 fade-in">
+        <a href="mailto:elesdoar@gmail.com" class="border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3 group-hover:text-zinc-300 transition-colors"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <p class="text-xs text-zinc-400 mb-0.5" data-i18n="contact.email_label">Email</p>
+          <p class="text-sm text-zinc-200">elesdoar@gmail.com</p>
+        </a>
+        <a href="tel:+573183503598" class="border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3 group-hover:text-zinc-300 transition-colors"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <p class="text-xs text-zinc-400 mb-0.5" data-i18n="contact.phone_label">Phone</p>
+          <p class="text-sm text-zinc-200">+57 318 350 3598</p>
+        </a>
+        <a href="https://github.com/elesdoar" target="_blank" rel="noopener noreferrer" class="border border-zinc-800 rounded-xl p-5 hover:border-zinc-700 transition-colors group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3 group-hover:text-zinc-300 transition-colors"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          <p class="text-xs text-zinc-400 mb-0.5">GitHub</p>
+          <p class="text-sm text-zinc-200">elesdoar</p>
+        </a>
+        <div class="border border-zinc-800 rounded-xl p-5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 mb-3"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <p class="text-xs text-zinc-400 mb-0.5" data-i18n="contact.location_label">Location</p>
+          <p class="text-sm text-zinc-200" data-i18n="contact.location">Cajicá, Cundinamarca, Colombia</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/60 py-8">
+    <div class="mx-auto max-w-5xl px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-zinc-600">&copy; 2024 Michael A. Salgado S.</p>
+      <p class="text-xs text-zinc-700" data-i18n="footer.built">Built with care and a lot of coffee.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ========================================
+    // i18n System
+    // ========================================
+    const translations = {
+      en: {
+        'nav.name': 'M. Salgado',
+        'nav.about': 'About',
+        'nav.skills': 'Skills',
+        'nav.experience': 'Experience',
+        'nav.projects': 'Projects',
+        'nav.analyzer': 'Match Analyzer',
+        'nav.contact': 'Contact',
+        'hero.greeting': 'Hello, I\'m',
+        'hero.title': 'Senior Software Architect & AI-Powered Engineer',
+        'hero.tagline': 'Leading the evolution of SDLC through Architectural Excellence and AI-Augmented Engineering. 13+ years building high-scale, distributed systems.',
+        'hero.cta_work': 'View Work',
+        'hero.cta_contact': 'Get in Touch',
+        'about.label': 'About',
+        'about.heading': 'Professional Profile',
+        'about.description': 'Senior Software Architect & Fullstack Engineer with 13+ years of experience and a specialization in Enterprise Architecture (Pontificia Universidad Javeriana). Expert in designing high-availability systems and microservices, currently leading the transition to AI-Powered Development. Specialist in optimizing the software development lifecycle (SDLC) through strategic integration of Generative AI, achieving significant time-to-market reduction without compromising technical robustness in AWS, Azure, and GCP environments.',
+        'about.focus': 'My focus: bridging the gap between enterprise-grade architecture and modern AI-augmented engineering workflows to deliver software that is both robust and rapidly iterated.',
+        'about.edu_label': 'Education',
+        'about.edu1': 'Enterprise Software Architecture',
+        'about.edu1_detail': 'Pontificia U. Javeriana, 2020',
+        'about.edu2': 'Systems Engineering',
+        'about.edu2_detail': 'U. Nacional de Colombia, 2013',
+        'about.years': 'years of experience',
+        'skills.label': 'Skills',
+        'skills.heading': 'Technical Expertise',
+        'skills.ai_title': 'AI & Productivity',
+        'skills.backend_title': 'Backend',
+        'skills.frontend_title': 'Frontend',
+        'skills.cloud_title': 'Cloud & DevOps',
+        'experience.label': 'Experience',
+        'experience.heading': 'Work History',
+        'experience.present': 'Present',
+        'experience.present2': 'Present',
+        'experience.sdp_role': 'Senior Developer',
+        'experience.sdp_desc': 'Solution development with Node.js, Angular, and Oracle.',
+        'experience.upra_role': 'DevOps Engineer',
+        'experience.upra_desc': 'Azure infrastructure implementation and development with Node.js and Angular.',
+        'experience.meli_badge': 'High-Scale',
+        'experience.meli_role': 'Senior Backend Developer',
+        'experience.meli_desc': 'Development of critical and scalable services in Java and Go for the region, optimizing backend performance through distributed architecture design on AWS and GCP.',
+        'experience.instaleap_role': 'Senior Fullstack Developer',
+        'experience.instaleap_desc': 'Microservices and logistics backoffice development with Node.js, React, and PostgreSQL.',
+        'experience.andje_role': 'Fullstack Developer',
+        'experience.andje_desc': 'Module development for eKogui, the State\'s litigation management system.',
+        'experience.eab_role': 'Development Lead',
+        'experience.eab_desc': 'Management and development of SISGEO v2, a geotechnical information system.',
+        'experience.kudos_role': 'Senior Developer',
+        'experience.kudos_desc': 'Fullstack development, microservices, and GIS with Angular, Java, and Node.js.',
+        'projects.label': 'Projects',
+        'projects.heading': 'Notable Projects',
+        'projects.devops_title': 'DevOps Transformation & Lifecycle Automation',
+        'projects.devops_desc': 'Led the transition to a DevOps culture at UPRA, automating CI/CD for 5+ mission-critical projects. Implemented Azure infrastructure and automated deployment flows.',
+        'projects.ekogui_title': 'eKogui',
+        'projects.ekogui_desc': 'Development and architecture of critical modules for the Colombian State\'s litigation management system, ensuring scalability and security.',
+        'projects.sipra_desc': 'Rural Agricultural Planning Information System for the Colombian agricultural sector.',
+        'projects.odin_desc': 'Last mile backoffice platform for logistics and delivery management.',
+        'projects.hidro_title': 'Hydrothermal Manifestations Inventory',
+        'projects.hidro_desc': 'National Inventory of Hydrothermal Manifestations — GIS-based geoportal.',
+        'projects.simma_desc': 'Mass Movement System — geological monitoring and GIS platform.',
+        'analyzer.label': 'Tool',
+        'analyzer.heading': 'Match Analyzer',
+        'analyzer.subheading': 'Paste a job description to see how my profile aligns with the requirements.',
+        'analyzer.window_title': 'profile-match-analyzer',
+        'analyzer.placeholder': 'Paste job description here...',
+        'analyzer.disclaimer': 'Client-side analysis only. No data is sent externally.',
+        'analyzer.button': 'Analyze',
+        'analyzer.results_title': 'Analysis Results',
+        'analyzer.match_label': 'Match:',
+        'analyzer.keywords_label': 'Matched Keywords',
+        'analyzer.cat_strong': 'Strong Match',
+        'analyzer.cat_moderate': 'Moderate Match',
+        'analyzer.cat_partial': 'Partial Match',
+        'contact.label': 'Contact',
+        'contact.heading': 'Let\'s Connect',
+        'contact.email_label': 'Email',
+        'contact.phone_label': 'Phone',
+        'contact.location_label': 'Location',
+        'contact.location': 'Cajicá, Cundinamarca, Colombia',
+        'footer.built': 'Built with care and a lot of coffee.',
+      },
+      es: {
+        'nav.name': 'M. Salgado',
+        'nav.about': 'Acerca',
+        'nav.skills': 'Habilidades',
+        'nav.experience': 'Experiencia',
+        'nav.projects': 'Proyectos',
+        'nav.analyzer': 'Analizador',
+        'nav.contact': 'Contacto',
+        'hero.greeting': 'Hola, soy',
+        'hero.title': 'Arquitecto de Software Senior & Ingeniero AI-Powered',
+        'hero.tagline': 'Liderando la evolución del SDLC a través de la Excelencia Arquitectónica e Ingeniería Aumentada con IA. 13+ años construyendo sistemas distribuidos de alta escala.',
+        'hero.cta_work': 'Ver Trabajo',
+        'hero.cta_contact': 'Contactar',
+        'about.label': 'Acerca',
+        'about.heading': 'Perfil Profesional',
+        'about.description': 'Arquitecto de Software Senior & Ingeniero Fullstack con más de 13 años de experiencia y especialización en Arquitectura Empresarial (Pontificia Universidad Javeriana). Experto en el diseño de sistemas de alta disponibilidad y microservicios, actualmente liderando la transición hacia el AI-Powered Development. Especialista en optimizar el ciclo de vida de desarrollo (SDLC) mediante la integración estratégica de IA Generativa, logrando una reducción significativa en el time-to-market sin comprometer la robustez técnica en entornos AWS, Azure y GCP.',
+        'about.focus': 'Mi enfoque: cerrar la brecha entre la arquitectura empresarial y los flujos de ingeniería modernos aumentados con IA para entregar software robusto e iterado rápidamente.',
+        'about.edu_label': 'Educación',
+        'about.edu1': 'Arquitectura Empresarial de Software',
+        'about.edu1_detail': 'Pontificia U. Javeriana, 2020',
+        'about.edu2': 'Ingeniería de Sistemas',
+        'about.edu2_detail': 'U. Nacional de Colombia, 2013',
+        'about.years': 'años de experiencia',
+        'skills.label': 'Habilidades',
+        'skills.heading': 'Experiencia Técnica',
+        'skills.ai_title': 'IA & Productividad',
+        'skills.backend_title': 'Backend',
+        'skills.frontend_title': 'Frontend',
+        'skills.cloud_title': 'Cloud & DevOps',
+        'experience.label': 'Experiencia',
+        'experience.heading': 'Historial Laboral',
+        'experience.present': 'Actualidad',
+        'experience.present2': 'Actualidad',
+        'experience.sdp_role': 'Desarrollador Senior',
+        'experience.sdp_desc': 'Desarrollo de soluciones con Node.js, Angular y Oracle.',
+        'experience.upra_role': 'Ingeniero DevOps',
+        'experience.upra_desc': 'Implementación de infraestructura en Azure y desarrollo con Node.js, Angular.',
+        'experience.meli_badge': 'Alta Escala',
+        'experience.meli_role': 'Desarrollador Backend Senior',
+        'experience.meli_desc': 'Desarrollo de servicios críticos y escalables en Java y Go para la región, optimizando el rendimiento del backend mediante el diseño de arquitecturas distribuidas sobre AWS y GCP.',
+        'experience.instaleap_role': 'Desarrollador Fullstack Senior',
+        'experience.instaleap_desc': 'Desarrollo de microservicios y backoffice de logística con Node.js, React y PostgreSQL.',
+        'experience.andje_role': 'Desarrollador Fullstack',
+        'experience.andje_desc': 'Desarrollo de módulos para eKogui, el sistema de gestión litigiosa del Estado.',
+        'experience.eab_role': 'Líder de Desarrollo',
+        'experience.eab_desc': 'Gestión y desarrollo de SISGEO v2, sistema de información geotécnica.',
+        'experience.kudos_role': 'Desarrollador Senior',
+        'experience.kudos_desc': 'Desarrollo fullstack, microservicios y GIS con Angular, Java y Node.js.',
+        'projects.label': 'Proyectos',
+        'projects.heading': 'Proyectos Destacados',
+        'projects.devops_title': 'Transformación DevOps & Automatización del Ciclo de Vida',
+        'projects.devops_desc': 'Lideré la transición hacia una cultura DevOps en UPRA, automatizando CI/CD para más de 5 proyectos misionales. Implementé infraestructura en Azure y flujos de despliegue automatizados.',
+        'projects.ekogui_title': 'eKogui',
+        'projects.ekogui_desc': 'Desarrollo y arquitectura de módulos críticos para el sistema de gestión jurídica del Estado colombiano, asegurando la escalabilidad y seguridad de la información procesada.',
+        'projects.sipra_desc': 'Sistema de Información para la Planificación Rural Agropecuaria del sector agrícola colombiano.',
+        'projects.odin_desc': 'Plataforma de backoffice de última milla para gestión logística y entregas.',
+        'projects.hidro_title': 'Inventario de Manifestaciones Hidrotermales',
+        'projects.hidro_desc': 'Inventario Nacional de Manifestaciones Hidrotermales — geoportal basado en GIS.',
+        'projects.simma_desc': 'Sistema de Movimientos en Masa — plataforma de monitoreo geológico y GIS.',
+        'analyzer.label': 'Herramienta',
+        'analyzer.heading': 'Analizador de Compatibilidad',
+        'analyzer.subheading': 'Pega una descripción de puesto para ver cómo mi perfil se alinea con los requisitos.',
+        'analyzer.window_title': 'analizador-de-perfil',
+        'analyzer.placeholder': 'Pega la descripción del puesto aquí...',
+        'analyzer.disclaimer': 'Análisis del lado del cliente. No se envían datos externamente.',
+        'analyzer.button': 'Analizar',
+        'analyzer.results_title': 'Resultados del Análisis',
+        'analyzer.match_label': 'Coincidencia:',
+        'analyzer.keywords_label': 'Palabras Clave Coincidentes',
+        'analyzer.cat_strong': 'Alta Coincidencia',
+        'analyzer.cat_moderate': 'Coincidencia Moderada',
+        'analyzer.cat_partial': 'Coincidencia Parcial',
+        'contact.label': 'Contacto',
+        'contact.heading': 'Conectemos',
+        'contact.email_label': 'Correo',
+        'contact.phone_label': 'Teléfono',
+        'contact.location_label': 'Ubicación',
+        'contact.location': 'Cajicá, Cundinamarca, Colombia',
+        'footer.built': 'Construido con cuidado y mucho café.',
+      }
+    };
+
+    let currentLang = 'en';
+
+    function detectLanguage() {
+      const stored = localStorage.getItem('portfolio-lang');
+      if (stored && translations[stored]) return stored;
+      const browserLang = navigator.language || navigator.userLanguage || 'en';
+      return browserLang.startsWith('es') ? 'es' : 'en';
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('portfolio-lang', lang);
+      document.documentElement.lang = lang;
+      document.getElementById('lang-toggle').textContent = lang.toUpperCase();
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+          el.placeholder = translations[lang][key];
+        }
+      });
+    }
+
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      setLanguage(currentLang === 'en' ? 'es' : 'en');
+    });
+
+    // Initialize language
+    setLanguage(detectLanguage());
+
+    // ========================================
+    // Mobile Menu
+    // ========================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // ========================================
+    // Fade-in on scroll
+    // ========================================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ========================================
+    // Match Analyzer
+    // ========================================
+    const skillProfile = {
+      'AI & Productivity': {
+        keywords: ['ai', 'artificial intelligence', 'llm', 'llms', 'large language model', 'prompt engineering', 'github copilot', 'copilot', 'chatgpt', 'gpt', 'claude', 'generative ai', 'gen ai', 'machine learning', 'ml', 'ai-powered', 'ai powered', 'automation', 'intelligent', 'nlp', 'natural language'],
+        weight: 1.2
+      },
+      'Backend': {
+        keywords: ['java', 'spring', 'spring boot', 'springboot', 'node', 'node.js', 'nodejs', 'nestjs', 'nest.js', 'express', 'express.js', 'go', 'golang', 'ruby', 'rails', 'ruby on rails', 'backend', 'back-end', 'api', 'rest', 'restful', 'graphql', 'microservices', 'microservice', 'grpc', 'sql', 'postgresql', 'postgres', 'mysql', 'oracle', 'mongodb', 'redis', 'kafka', 'rabbitmq', 'message queue'],
+        weight: 1.0
+      },
+      'Frontend': {
+        keywords: ['angular', 'react', 'reactjs', 'react.js', 'frontend', 'front-end', 'javascript', 'typescript', 'html', 'css', 'sass', 'scss', 'tailwind', 'ui', 'ux', 'ui/ux', 'spa', 'single page', 'responsive', 'web', 'pwa', 'state management', 'redux', 'ngrx', 'rxjs'],
+        weight: 1.0
+      },
+      'Cloud & DevOps': {
+        keywords: ['aws', 'amazon web services', 'azure', 'gcp', 'google cloud', 'cloud', 'docker', 'kubernetes', 'k8s', 'terraform', 'infrastructure', 'iac', 'infrastructure as code', 'ci/cd', 'ci cd', 'cicd', 'jenkins', 'github actions', 'devops', 'dev ops', 'deployment', 'pipeline', 'container', 'serverless', 'lambda', 'monitoring', 'observability'],
+        weight: 1.0
+      },
+      'Architecture': {
+        keywords: ['architect', 'architecture', 'enterprise', 'system design', 'distributed', 'scalable', 'scalability', 'high availability', 'ha', 'design patterns', 'solid', 'clean architecture', 'domain driven', 'ddd', 'event driven', 'cqrs', 'event sourcing', 'soa', 'technical lead', 'tech lead', 'lead', 'senior', 'principal'],
+        weight: 1.1
+      },
+      'GIS & Data': {
+        keywords: ['gis', 'geographic', 'geospatial', 'mapping', 'geoportal', 'spatial', 'data', 'analytics', 'data engineering', 'etl', 'data pipeline'],
+        weight: 0.8
+      }
+    };
+
+    function analyzeMatch(text) {
+      const normalized = text.toLowerCase().replace(/[^\w\s\/\-\.]/g, ' ');
+      const results = {};
+      let totalMatched = 0;
+      let totalKeywords = 0;
+      const allMatched = new Set();
+
+      for (const [category, data] of Object.entries(skillProfile)) {
+        const matched = [];
+        for (const kw of data.keywords) {
+          if (normalized.includes(kw)) {
+            matched.push(kw);
+            allMatched.add(kw);
+          }
+        }
+        const score = Math.min(matched.length / Math.max(data.keywords.length * 0.3, 1), 1) * data.weight;
+        results[category] = { matched, score: Math.min(score, 1), total: data.keywords.length };
+        totalMatched += matched.length * data.weight;
+        totalKeywords += data.keywords.length * 0.3;
+      }
+
+      const overallMatch = Math.min(Math.round((totalMatched / Math.max(totalKeywords, 1)) * 100), 98);
+      return { results, overallMatch, allMatched: Array.from(allMatched) };
+    }
+
+    function renderResults(analysis) {
+      const container = document.getElementById('analyzer-results');
+      const percentage = document.getElementById('match-percentage');
+      const bar = document.getElementById('match-bar');
+      const categories = document.getElementById('matched-categories');
+      const keywordTags = document.getElementById('keyword-tags');
+
+      container.classList.remove('hidden');
+      percentage.textContent = analysis.overallMatch + '%';
+
+      const barColor = analysis.overallMatch >= 70 ? 'bg-emerald-500' : analysis.overallMatch >= 40 ? 'bg-amber-500' : 'bg-zinc-500';
+      bar.className = 'h-full rounded-full transition-all duration-700 ease-out ' + barColor;
+      setTimeout(() => { bar.style.width = analysis.overallMatch + '%'; }, 50);
+
+      const t = translations[currentLang];
+      categories.innerHTML = '';
+      const sorted = Object.entries(analysis.results)
+        .filter(([, v]) => v.matched.length > 0)
+        .sort((a, b) => b[1].score - a[1].score);
+
+      for (const [cat, data] of sorted) {
+        const pct = Math.round(data.score * 100);
+        const label = pct >= 70 ? t['analyzer.cat_strong'] : pct >= 40 ? t['analyzer.cat_moderate'] : t['analyzer.cat_partial'];
+        const labelColor = pct >= 70 ? 'text-emerald-400' : pct >= 40 ? 'text-amber-400' : 'text-zinc-400';
+        const barBg = pct >= 70 ? 'bg-emerald-500/30' : pct >= 40 ? 'bg-amber-500/30' : 'bg-zinc-500/30';
+        const barFill = pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-zinc-600';
+
+        const div = document.createElement('div');
+        div.innerHTML = '<div class="flex items-center justify-between mb-1.5">' +
+          '<span class="font-mono text-xs text-zinc-300">' + cat + '</span>' +
+          '<span class="text-[10px] ' + labelColor + '">' + label + ' (' + pct + '%)</span>' +
+          '</div>' +
+          '<div class="w-full h-1 ' + barBg + ' rounded-full overflow-hidden">' +
+          '<div class="' + barFill + ' h-full rounded-full" style="width:' + pct + '%"></div>' +
+          '</div>';
+        categories.appendChild(div);
+      }
+
+      keywordTags.innerHTML = '';
+      for (const kw of analysis.allMatched.sort()) {
+        const span = document.createElement('span');
+        span.className = 'text-[10px] font-mono bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded';
+        span.textContent = kw;
+        keywordTags.appendChild(span);
+      }
+    }
+
+    document.getElementById('analyze-btn').addEventListener('click', () => {
+      const input = document.getElementById('analyzer-input').value.trim();
+      if (!input) return;
+      const analysis = analyzeMatch(input);
+      renderResults(analysis);
+    });
+  </script>
+</body>
+</html>
