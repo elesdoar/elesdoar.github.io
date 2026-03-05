@@ -6,6 +6,9 @@
   <title>Michael A. Salgado S. — Senior Software Architect</title>
   <meta name="description" content="Senior Software Architect & AI-Powered Engineer. 13+ years leading the evolution of SDLC through Architectural Excellence and AI-Augmented Engineering.">
   <meta name="author" content="Michael A. Salgado S.">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta property="og:title" content="Michael A. Salgado S. — Senior Software Architect">
   <meta property="og:description" content="Senior Software Architect & AI-Powered Engineer with 13+ years of experience.">
   <meta property="og:type" content="website">
@@ -1106,9 +1109,10 @@
       if (aiScores) {
         for (const [cat, data] of Object.entries(analysis.results)) {
           const aiScore = aiScores[cat];
+          const catWeight = (skillProfile[cat] && skillProfile[cat].weight) || 1.0;
           if (aiScore !== undefined && isFinite(aiScore)) {
             // Blend: 50% keywords, 50% AI semantic
-            const blended = data.score * 0.5 + aiScore * data.weight * 0.5;
+            const blended = data.score * 0.5 + aiScore * catWeight * 0.5;
             data.score = Math.min(isFinite(blended) ? blended : data.score, 1);
           }
         }
